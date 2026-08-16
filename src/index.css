@@ -1,0 +1,87 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: 'Demun Lotion';
+  src: url('/local/fonts/demun-lotion.woff2') format('woff2'),
+       url('/local/fonts/demun-lotion.woff') format('woff'),
+       url('/local/fonts/demun-lotion.ttf') format('truetype'),
+       url('/local/fonts/demun-lotion.otf') format('opentype'),
+       url('/local/fonts/DemunLotion.woff2') format('woff2'),
+       url('/local/fonts/DemunLotion.woff') format('woff'),
+       url('/local/fonts/DemunLotion.ttf') format('truetype'),
+       url('/local/fonts/DemunLotion.otf') format('opentype'),
+       url('/local/fonts/Demun-Lotion.ttf') format('truetype'),
+       url('/local/fonts/Demun-Lotion.otf') format('opentype'),
+       url('/local/fonts/demun_lotion.ttf') format('truetype'),
+       url('/local/fonts/demunlotion.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Sandy Ravage';
+  src: url('/local/fonts/sandy-ravage.woff2') format('woff2'),
+       url('/local/fonts/sandy-ravage.woff') format('woff'),
+       url('/local/fonts/sandy-ravage.ttf') format('truetype'),
+       url('/local/fonts/sandy-ravage.otf') format('opentype'),
+       url('/local/fonts/SandyRavage.woff2') format('woff2'),
+       url('/local/fonts/SandyRavage.woff') format('woff'),
+       url('/local/fonts/SandyRavage.ttf') format('truetype'),
+       url('/local/fonts/SandyRavage.otf') format('opentype'),
+       url('/local/fonts/Sandy-Ravage.ttf') format('truetype'),
+       url('/local/fonts/Sandy-Ravage.otf') format('opentype'),
+       url('/local/fonts/sandy_ravage.ttf') format('truetype'),
+       url('/local/fonts/sandyravage.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@layer utilities {
+  .font-display {
+    font-family: 'Pixelify Sans', system-ui, sans-serif;
+  }
+  .font-body {
+    font-family: 'Raleway', system-ui, sans-serif;
+  }
+  .font-demun {
+    font-family: 'Demun Lotion', 'Che Demu', system-ui, sans-serif;
+  }
+  .font-sandy {
+    font-family: 'Sandy Ravage', system-ui, sans-serif;
+  }
+}
+
+/* Glass bar and blur effects */
+.glass-bar {
+  background: rgba(255, 255, 255, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.32);
+  backdrop-filter: blur(17px);
+  -webkit-backdrop-filter: blur(17px);
+  box-shadow: 0px 24px 70px 0px rgba(0, 0, 0, 0.24);
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(180deg, rgb(0, 0, 0) 0%, rgb(0, 0, 0) 62%, rgba(0, 0, 0, 0.55) 82%, rgba(0, 0, 0, 0) 100%);
+  mask-image: linear-gradient(180deg, rgb(0, 0, 0) 0%, rgb(0, 0, 0) 62%, rgba(0, 0, 0, 0.55) 82%, rgba(0, 0, 0, 0) 100%);
+}
+
+.blur-divider {
+  filter: blur(41px);
+  opacity: 0.82;
+  background: linear-gradient(180deg, rgba(8, 7, 7, 0.99) 0%, rgb(5, 5, 5) 100%);
+}
+
+.hero-stage-wrap {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.hero-stage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1289px;
+  height: 1051px;
+  transform-origin: top left;
+}
