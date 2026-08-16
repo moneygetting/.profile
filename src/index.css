@@ -38,6 +38,12 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: 'Arcade Classic';
+  src: local('Arcade Classic'), local('ArcadeClassic');
+  font-display: swap;
+}
+
 @layer utilities {
   .font-display {
     font-family: 'Pixelify Sans', system-ui, sans-serif;
@@ -84,4 +90,62 @@
   width: 1289px;
   height: 1051px;
   transform-origin: top left;
+}
+
+.site-nav {
+  position: fixed;
+  z-index: 30;
+  top: 0;
+  left: 50%;
+  width: 1289px;
+  height: 121px;
+  transform: translateX(-50%) scale(var(--hero-scale, 1));
+  transform-origin: top center;
+  transition: transform 240ms ease, opacity 240ms ease;
+}
+
+.site-nav-hidden {
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, -110%) scale(var(--hero-scale, 1));
+}
+
+.technology-video {
+  min-height: 220px;
+}
+
+.tech-statement {
+  position: absolute;
+  inset: 50% 1.25rem auto;
+  margin: 0;
+  transform: translateY(-50%);
+  color: #ffd700;
+  font-family: 'Arcade Classic', 'Pixelify Sans', monospace;
+  font-size: clamp(14px, 2.4vw, 30px);
+  line-height: 1.45;
+  text-align: center;
+  text-wrap: balance;
+  text-shadow: 0 2px 8px rgb(0 0 0 / 0.9);
+  opacity: 0;
+  transition: opacity 300ms ease;
+}
+
+.tech-statement-visible {
+  opacity: 1;
+}
+
+@media (max-width: 640px) {
+  .site-nav {
+    width: 100vw;
+    transform: translateX(-50%) scale(calc(100vw / 1289));
+  }
+
+  .site-nav-hidden {
+    transform: translate(-50%, -110%) scale(calc(100vw / 1289));
+  }
+
+  .tech-statement {
+    inset-inline: 1rem;
+    font-size: 14px;
+  }
 }

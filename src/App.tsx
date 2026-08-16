@@ -9,9 +9,13 @@ const ROBOT_URL =
 
 export default function App() {
   const [expandProgress, setExpandProgress] = useState(0)
+  const [navVisible, setNavVisible] = useState(true)
+  const [techText, setTechText] = useState('')
   const stageWrapRef = useRef<HTMLDivElement>(null)
   const stageRef = useRef<HTMLDivElement>(null)
   const transitionTrackRef = useRef<HTMLDivElement>(null)
+  const lastScrollYRef = useRef(0)
+  const typewriterStartedRef = useRef(false)
 
   // Responsive scale handler for pixel-exact hero stage
   useEffect(() => {
@@ -26,6 +30,41 @@ export default function App() {
     handleResize()
     window.addEventListener('resize', handleResize)
     return () => window.removeEventListener('resize', handleResize)
+  }, [])
+
+  // Keep the navigation visible while scrolling up and hide it while scrolling down.
+  useEffect(() => {
+    const handleNavScroll = () => {
+      const currentScrollY = window.scrollY
+      setNavVisible(currentScrollY <= lastScrollYRef.current || currentScrollY < 24)
+      lastScrollYRef.current = currentScrollY
+    }
+
+    window.addEventListener('scroll', handleNavScroll, { passive: true })
+    return () => window.removeEventListener('scroll', handleNavScroll)
+  }, [])
+
+  // Reveal and type the technology statement once its video enters the viewport.
+  useEffect(() => {
+    const statement = 'To demonstrate my psychology knowledge combined with my tech skills, I designed and developed this site myself. No drag and drop platforms, minimal AI.'
+    const handleTechScroll = () => {
+      const video = document.querySelector('#technology-video')
+      if (!video || typewriterStartedRef.current) return
+      const rect = video.getBoundingClientRect()
+      if (rect.top < window.innerHeight * 0.82) {
+        typewriterStartedRef.current = true
+        let index = 0
+        const timer = window.setInterval(() => {
+          index += 1
+          setTechText(statement.slice(0, index))
+          if (index >= statement.length) window.clearInterval(timer)
+        }, 28)
+      }
+    }
+
+    window.addEventListener('scroll', handleTechScroll, { passive: true })
+    handleTechScroll()
+    return () => window.removeEventListener('scroll', handleTechScroll)
   }, [])
 
   // Scroll expansion handler for Case Study 02 white card container
@@ -77,11 +116,12 @@ export default function App() {
             <div style={{ position: 'absolute', left: 0, top: 0, width: '1289px', height: '1051px', background: 'rgb(5, 5, 5)', opacity: 0.82 }} />
 
             {/* Glass nav bar */}
-            <div className="glass-bar" style={{ position: 'absolute', left: 0, top: 0, width: '1289px', height: '121px' }} />
+            <div className={`site-nav ${navVisible ? 'site-nav-visible' : 'site-nav-hidden'}`} aria-label="Main navigation">
+              <div className="glass-bar" style={{ position: 'absolute', left: 0, top: 0, width: '1289px', height: '121px' }} />
 
-            {/* Inner black nav pill */}
-            <div
-              style={{
+              {/* Inner black nav pill */}
+              <div
+                style={{
                 position: 'absolute',
                 left: '21px',
                 top: '9px',
@@ -110,6 +150,7 @@ export default function App() {
                 style={{ fontWeight: 800, fontSize: '28px', lineHeight: '1.2em', color: 'rgb(250, 250, 250)', whiteSpace: 'nowrap' }}
               >
                 Senzwelwe&apos;s Profile
+              </div>
               </div>
             </div>
 
@@ -153,18 +194,21 @@ export default function App() {
       {/* ---------------- SECTION 2: CASE 1 CONTENT ---------------- */}
       <section id="case1-content" className="bg-[#000000] py-0">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <video
-            autoPlay
-            loop
-            muted
-            playsInline
-            preload="metadata"
-            poster={ROBOT_URL}
-            className="w-full h-full object-cover rounded-[60px]"
-          >
-            <source src="https://res.cloudinary.com/gzou7y5z/video/upload/q_auto,f_auto/technologyVideo.YyDVUGsY.mp4" type="video/mp4" />
-            <source src="https://res.cloudinary.com/gzou7y5z/video/upload/f_auto,q_auto/technologyVideo.YyDVUGsY.mp4" type="video/mp4" />
-          </video>
+          <div id="technology-video" className="technology-video relative overflow-hidden rounded-[60px]">
+            <video
+              autoPlay
+              loop
+              muted
+              playsInline
+              preload="metadata"
+              poster={ROBOT_URL}
+              className="w-full h-full object-cover"
+            >
+              <source src="https://res.cloudinary.com/gzou7y5z/video/upload/q_auto,f_auto/technologyVideo.YyDVUGsY.mp4" type="video/mp4" />
+              <source src="https://res.cloudinary.com/gzou7y5z/video/upload/f_auto,q_auto/technologyVideo.YyDVUGsY.mp4" type="video/mp4" />
+            </video>
+            <p className={`tech-statement ${techText ? 'tech-statement-visible' : ''}`} aria-live="polite">{techText}</p>
+          </div>
 
           {/* First "The Diagnosis" block */}
           <div className="flex flex-col sm:flex-row items-start gap-6 sm:gap-8 mb-12 mt-8">
