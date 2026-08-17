@@ -1,4 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
+import { createPortal } from 'react-dom'
+import { Check, Copy } from 'lucide-react'
 
 const LOGO_URL =
   'https://res.cloudinary.com/gzou7y5z/image/upload/v1786812186/s.i_6.png'
@@ -9,23 +11,40 @@ const ROBOT_URL =
 
 export default function App() {
   const [expandProgress, setExpandProgress] = useState(0)
+  const [navVisible, setNavVisible] = useState(true)
+  const [contactOpen, setContactOpen] = useState(false)
+  const [copiedField, setCopiedField] = useState<'email' | 'phone' | null>(null)
   const stageWrapRef = useRef<HTMLDivElement>(null)
   const stageRef = useRef<HTMLDivElement>(null)
   const transitionTrackRef = useRef<HTMLDivElement>(null)
+  const lastScrollYRef = useRef(0)
 
   // Responsive scale handler for pixel-exact hero stage
   useEffect(() => {
     const handleResize = () => {
       if (stageWrapRef.current && stageRef.current) {
-        const scale = stageWrapRef.current.clientWidth / 1289
+        const scale = Math.min(1, stageWrapRef.current.clientWidth / 1289)
         stageRef.current.style.transform = `scale(${scale})`
         stageWrapRef.current.style.height = `${1051 * scale}px`
+        document.documentElement.style.setProperty('--hero-scale', String(scale))
       }
     }
 
     handleResize()
     window.addEventListener('resize', handleResize)
     return () => window.removeEventListener('resize', handleResize)
+  }, [])
+
+  // Keep the navigation visible while scrolling up and hide it while scrolling down.
+  useEffect(() => {
+    const handleNavScroll = () => {
+      const currentScrollY = window.scrollY
+      setNavVisible(currentScrollY >= lastScrollYRef.current || currentScrollY < 24)
+      lastScrollYRef.current = currentScrollY
+    }
+
+    window.addEventListener('scroll', handleNavScroll, { passive: true })
+    return () => window.removeEventListener('scroll', handleNavScroll)
   }, [])
 
   // Scroll expansion handler for Case Study 02 white card container
@@ -77,11 +96,12 @@ export default function App() {
             <div style={{ position: 'absolute', left: 0, top: 0, width: '1289px', height: '1051px', background: 'rgb(5, 5, 5)', opacity: 0.82 }} />
 
             {/* Glass nav bar */}
-            <div className="glass-bar" style={{ position: 'absolute', left: 0, top: 0, width: '1289px', height: '121px' }} />
+            {createPortal(<div className={`site-nav ${navVisible ? 'site-nav-visible' : 'site-nav-hidden'}`} aria-label="Main navigation">
+              <div className="glass-bar" style={{ position: 'absolute', left: 0, top: 0, width: '1289px', height: '121px' }} />
 
-            {/* Inner black nav pill */}
-            <div
-              style={{
+              {/* Inner black nav pill */}
+              <div
+                style={{
                 position: 'absolute',
                 left: '21px',
                 top: '9px',
@@ -109,9 +129,10 @@ export default function App() {
                 className="font-body"
                 style={{ fontWeight: 800, fontSize: '28px', lineHeight: '1.2em', color: 'rgb(250, 250, 250)', whiteSpace: 'nowrap' }}
               >
-                Senzwelwe&apos;s Profile
+                <button type="button" className="contact-trigger" onClick={() => setContactOpen(true)}>Senzwelwe&apos;s Profile</button>
               </div>
-            </div>
+              </div>
+            </div>, document.body)}
 
             {/* Giant case number */}
             <div
@@ -153,18 +174,20 @@ export default function App() {
       {/* ---------------- SECTION 2: CASE 1 CONTENT ---------------- */}
       <section id="case1-content" className="bg-[#000000] py-0">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <video
-            autoPlay
-            loop
-            muted
-            playsInline
-            preload="metadata"
-            poster={ROBOT_URL}
-            className="w-full h-full object-cover rounded-[60px]"
-          >
-            <source src="https://res.cloudinary.com/gzou7y5z/video/upload/q_auto,f_auto/technologyVideo.YyDVUGsY.mp4" type="video/mp4" />
-            <source src="https://res.cloudinary.com/gzou7y5z/video/upload/f_auto,q_auto/technologyVideo.YyDVUGsY.mp4" type="video/mp4" />
-          </video>
+          <div id="technology-video" className="technology-video relative overflow-hidden rounded-[60px]">
+            <video
+              autoPlay
+              loop
+              muted
+              playsInline
+              preload="metadata"
+              poster={ROBOT_URL}
+              className="w-full h-full object-cover"
+            >
+              <source src="https://res.cloudinary.com/gzou7y5z/video/upload/q_auto,f_auto/technologyVideo.YyDVUGsY.mp4" type="video/mp4" />
+              <source src="https://res.cloudinary.com/gzou7y5z/video/upload/f_auto,q_auto/technologyVideo.YyDVUGsY.mp4" type="video/mp4" />
+            </video>
+          </div>
 
           {/* First "The Diagnosis" block */}
           <div className="flex flex-col sm:flex-row items-start gap-6 sm:gap-8 mb-12 mt-8">
@@ -313,10 +336,42 @@ export default function App() {
       {/* ---------------- FOOTER ---------------- */}
       <footer id="footer" className="bg-[#000000] py-6 w-full border-t border-white/10">
         <div className="flex flex-col items-center justify-center text-center gap-1">
-          <p className="font-body font-normal text-[12px] leading-[1.4] text-[#FCFAFA]">Produced by Senzelweyinkosi MJ.r Dlamini</p>
+          <button type="button" className="contact-trigger font-body font-normal text-[12px] leading-[1.4] text-[#FCFAFA]" onClick={() => setContactOpen(true)}>Produced by Senzelweyinkosi MJ.r Dlamini</button>
           <p className="font-body font-normal text-[12px] leading-[1.4] text-white/60">© 2026</p>
         </div>
       </footer>
+
+      {contactOpen && (
+        <div className="contact-overlay" role="presentation" onClick={() => setContactOpen(false)}>
+          <section className="contact-card" role="dialog" aria-modal="true" aria-labelledby="contact-title" onClick={(event) => event.stopPropagation()}>
+            <img src={ROBOT_URL} alt="Green robot" className="contact-robot" crossOrigin="anonymous" referrerPolicy="no-referrer" />
+            <h2 id="contact-title" className="font-display contact-title">Contact Me!</h2>
+            <p className="font-body contact-copy">If you like what you see and would like to find out more about my work, feel free to hit me up at:</p>
+            <div className="contact-fields">
+              {[
+                { id: 'email' as const, value: 'senzelwemoosadlamini@gmail.com' },
+                { id: 'phone' as const, value: '(+268)7853 5955' },
+              ].map(({ id, value }) => (
+                <button
+                  key={id}
+                  type="button"
+                  className="contact-field"
+                  onClick={async () => {
+                    await navigator.clipboard.writeText(value)
+                    setCopiedField(id)
+                    window.setTimeout(() => setCopiedField(null), 1600)
+                  }}
+                  aria-label={`Copy ${id}`}
+                >
+                  <span>{value}</span>
+                  {copiedField === id ? <Check aria-hidden="true" /> : <Copy aria-hidden="true" />}
+                </button>
+              ))}
+            </div>
+            <button type="button" className="contact-dismiss" onClick={() => setContactOpen(false)}>OK, Bye</button>
+          </section>
+        </div>
+      )}
     </div>
   )
 }

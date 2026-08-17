@@ -85,3 +85,154 @@
   height: 1051px;
   transform-origin: top left;
 }
+
+.site-nav {
+  position: fixed;
+  z-index: 30;
+  top: 0;
+  left: 50%;
+  width: 1289px;
+  height: 121px;
+  transform: translateX(-50%) scale(var(--hero-scale, 1));
+  transform-origin: top center;
+  transition: transform 240ms ease, opacity 240ms ease;
+}
+
+.site-nav-hidden {
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, -110%) scale(var(--hero-scale, 1));
+}
+
+.technology-video {
+  min-height: 220px;
+}
+
+.contact-trigger {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.contact-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem;
+  background: rgb(0 0 0 / 0.62);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.contact-card {
+  width: min(100%, 420px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.5rem;
+  border-radius: 2rem;
+  background: #000000;
+  color: #fcfafa;
+  text-align: center;
+  box-shadow: 0 1.5rem 4rem rgb(0 0 0 / 0.55);
+}
+
+.contact-robot {
+  width: min(100%, 270px);
+  max-height: 230px;
+  object-fit: contain;
+}
+
+.contact-title {
+  margin: 0;
+  color: #ffd700;
+  font-size: clamp(2rem, 8vw, 3.25rem);
+  line-height: 1;
+}
+
+.contact-copy {
+  margin: 0;
+  font-size: clamp(0.85rem, 2.2vw, 1rem);
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+.contact-fields {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.contact-field {
+  width: 100%;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  border: 0;
+  border-radius: 1rem;
+  min-height: 2.5rem;
+  padding: 0.5rem 0.8rem;
+  background: #242424;
+  color: #b8b8b8;
+  font: inherit;
+  font-size: clamp(0.72rem, 2vw, 0.9rem);
+  font-weight: 400;
+  text-align: left;
+  cursor: pointer;
+}
+
+.contact-field span {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.contact-field svg {
+  flex: 0 0 auto;
+  width: 1rem;
+  height: 1rem;
+  color: #8f8f8f;
+}
+
+.contact-dismiss {
+  border: 0;
+  border-radius: 999px;
+  min-height: clamp(2.5rem, 8vw, 3rem);
+  padding: 0.65rem clamp(1.1rem, 4vw, 1.5rem);
+  font-size: clamp(0.8rem, 2.2vw, 1rem);
+  background: #ffd700;
+  color: #000000;
+  font: inherit;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+@media (max-width: 640px) {
+  .contact-overlay {
+    padding: 0.75rem;
+  }
+
+  .contact-card {
+    gap: 0.75rem;
+    padding: 1rem;
+    border-radius: 1.5rem;
+  }
+
+  .contact-robot {
+    width: min(48vw, 120px);
+    max-height: 120px;
+  }
+
+  .contact-title {
+    font-size: clamp(1.65rem, 9vw, 2.25rem);
+  }
+}
