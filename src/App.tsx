@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import { createPortal } from 'react-dom'
+import { Check, Copy } from 'lucide-react'
 
 const LOGO_URL =
   'https://res.cloudinary.com/gzou7y5z/image/upload/v1786812186/s.i_6.png'
@@ -12,6 +13,7 @@ export default function App() {
   const [expandProgress, setExpandProgress] = useState(0)
   const [navVisible, setNavVisible] = useState(true)
   const [contactOpen, setContactOpen] = useState(false)
+  const [copiedField, setCopiedField] = useState<'email' | 'phone' | null>(null)
   const stageWrapRef = useRef<HTMLDivElement>(null)
   const stageRef = useRef<HTMLDivElement>(null)
   const transitionTrackRef = useRef<HTMLDivElement>(null)
@@ -21,9 +23,10 @@ export default function App() {
   useEffect(() => {
     const handleResize = () => {
       if (stageWrapRef.current && stageRef.current) {
-        const scale = stageWrapRef.current.clientWidth / 1289
+        const scale = Math.min(1, stageWrapRef.current.clientWidth / 1289)
         stageRef.current.style.transform = `scale(${scale})`
         stageWrapRef.current.style.height = `${1051 * scale}px`
+        document.documentElement.style.setProperty('--hero-scale', String(scale))
       }
     }
 
@@ -343,7 +346,28 @@ export default function App() {
           <section className="contact-card" role="dialog" aria-modal="true" aria-labelledby="contact-title" onClick={(event) => event.stopPropagation()}>
             <img src={ROBOT_URL} alt="Green robot" className="contact-robot" crossOrigin="anonymous" referrerPolicy="no-referrer" />
             <h2 id="contact-title" className="font-display contact-title">Contact Me!</h2>
-            <p className="font-body contact-copy">If you like what you see and would like to find out more about my work, feel free to hit me up at senzelwemoosadlamini@gmail.com or (+268)7853 5955.</p>
+            <p className="font-body contact-copy">If you like what you see and would like to find out more about my work, feel free to hit me up at:</p>
+            <div className="contact-fields">
+              {[
+                { id: 'email' as const, value: 'senzelwemoosadlamini@gmail.com' },
+                { id: 'phone' as const, value: '(+268)7853 5955' },
+              ].map(({ id, value }) => (
+                <button
+                  key={id}
+                  type="button"
+                  className="contact-field"
+                  onClick={async () => {
+                    await navigator.clipboard.writeText(value)
+                    setCopiedField(id)
+                    window.setTimeout(() => setCopiedField(null), 1600)
+                  }}
+                  aria-label={`Copy ${id}`}
+                >
+                  <span>{value}</span>
+                  {copiedField === id ? <Check aria-hidden="true" /> : <Copy aria-hidden="true" />}
+                </button>
+              ))}
+            </div>
             <button type="button" className="contact-dismiss" onClick={() => setContactOpen(false)}>OK, Bye</button>
           </section>
         </div>
