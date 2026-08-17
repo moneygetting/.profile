@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
+import { createPortal } from 'react-dom'
 
 const LOGO_URL =
   'https://res.cloudinary.com/gzou7y5z/image/upload/v1786812186/s.i_6.png'
@@ -10,12 +11,11 @@ const ROBOT_URL =
 export default function App() {
   const [expandProgress, setExpandProgress] = useState(0)
   const [navVisible, setNavVisible] = useState(true)
-  const [techText, setTechText] = useState('')
+  const [contactOpen, setContactOpen] = useState(false)
   const stageWrapRef = useRef<HTMLDivElement>(null)
   const stageRef = useRef<HTMLDivElement>(null)
   const transitionTrackRef = useRef<HTMLDivElement>(null)
   const lastScrollYRef = useRef(0)
-  const typewriterStartedRef = useRef(false)
 
   // Responsive scale handler for pixel-exact hero stage
   useEffect(() => {
@@ -36,35 +36,12 @@ export default function App() {
   useEffect(() => {
     const handleNavScroll = () => {
       const currentScrollY = window.scrollY
-      setNavVisible(currentScrollY <= lastScrollYRef.current || currentScrollY < 24)
+      setNavVisible(currentScrollY >= lastScrollYRef.current || currentScrollY < 24)
       lastScrollYRef.current = currentScrollY
     }
 
     window.addEventListener('scroll', handleNavScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleNavScroll)
-  }, [])
-
-  // Reveal and type the technology statement once its video enters the viewport.
-  useEffect(() => {
-    const statement = 'To demonstrate my psychology knowledge combined with my tech skills, I designed and developed this site myself. No drag and drop platforms, minimal AI.'
-    const handleTechScroll = () => {
-      const video = document.querySelector('#technology-video')
-      if (!video || typewriterStartedRef.current) return
-      const rect = video.getBoundingClientRect()
-      if (rect.top < window.innerHeight * 0.82) {
-        typewriterStartedRef.current = true
-        let index = 0
-        const timer = window.setInterval(() => {
-          index += 1
-          setTechText(statement.slice(0, index))
-          if (index >= statement.length) window.clearInterval(timer)
-        }, 28)
-      }
-    }
-
-    window.addEventListener('scroll', handleTechScroll, { passive: true })
-    handleTechScroll()
-    return () => window.removeEventListener('scroll', handleTechScroll)
   }, [])
 
   // Scroll expansion handler for Case Study 02 white card container
@@ -116,7 +93,7 @@ export default function App() {
             <div style={{ position: 'absolute', left: 0, top: 0, width: '1289px', height: '1051px', background: 'rgb(5, 5, 5)', opacity: 0.82 }} />
 
             {/* Glass nav bar */}
-            <div className={`site-nav ${navVisible ? 'site-nav-visible' : 'site-nav-hidden'}`} aria-label="Main navigation">
+            {createPortal(<div className={`site-nav ${navVisible ? 'site-nav-visible' : 'site-nav-hidden'}`} aria-label="Main navigation">
               <div className="glass-bar" style={{ position: 'absolute', left: 0, top: 0, width: '1289px', height: '121px' }} />
 
               {/* Inner black nav pill */}
@@ -149,10 +126,10 @@ export default function App() {
                 className="font-body"
                 style={{ fontWeight: 800, fontSize: '28px', lineHeight: '1.2em', color: 'rgb(250, 250, 250)', whiteSpace: 'nowrap' }}
               >
-                Senzwelwe&apos;s Profile
+                <button type="button" className="contact-trigger" onClick={() => setContactOpen(true)}>Senzwelwe&apos;s Profile</button>
               </div>
               </div>
-            </div>
+            </div>, document.body)}
 
             {/* Giant case number */}
             <div
@@ -207,7 +184,6 @@ export default function App() {
               <source src="https://res.cloudinary.com/gzou7y5z/video/upload/q_auto,f_auto/technologyVideo.YyDVUGsY.mp4" type="video/mp4" />
               <source src="https://res.cloudinary.com/gzou7y5z/video/upload/f_auto,q_auto/technologyVideo.YyDVUGsY.mp4" type="video/mp4" />
             </video>
-            <p className={`tech-statement ${techText ? 'tech-statement-visible' : ''}`} aria-live="polite">{techText}</p>
           </div>
 
           {/* First "The Diagnosis" block */}
@@ -357,10 +333,21 @@ export default function App() {
       {/* ---------------- FOOTER ---------------- */}
       <footer id="footer" className="bg-[#000000] py-6 w-full border-t border-white/10">
         <div className="flex flex-col items-center justify-center text-center gap-1">
-          <p className="font-body font-normal text-[12px] leading-[1.4] text-[#FCFAFA]">Produced by Senzelweyinkosi MJ.r Dlamini</p>
+          <button type="button" className="contact-trigger font-body font-normal text-[12px] leading-[1.4] text-[#FCFAFA]" onClick={() => setContactOpen(true)}>Produced by Senzelweyinkosi MJ.r Dlamini</button>
           <p className="font-body font-normal text-[12px] leading-[1.4] text-white/60">© 2026</p>
         </div>
       </footer>
+
+      {contactOpen && (
+        <div className="contact-overlay" role="presentation" onClick={() => setContactOpen(false)}>
+          <section className="contact-card" role="dialog" aria-modal="true" aria-labelledby="contact-title" onClick={(event) => event.stopPropagation()}>
+            <img src={ROBOT_URL} alt="Green robot" className="contact-robot" crossOrigin="anonymous" referrerPolicy="no-referrer" />
+            <h2 id="contact-title" className="font-display contact-title">Contact Me!</h2>
+            <p className="font-body contact-copy">If you like what you see and would like to find out more about my work, feel free to hit me up at senzelwemoosadlamini@gmail.com or (+268)7853 5955.</p>
+            <button type="button" className="contact-dismiss" onClick={() => setContactOpen(false)}>OK, Bye</button>
+          </section>
+        </div>
+      )}
     </div>
   )
 }
