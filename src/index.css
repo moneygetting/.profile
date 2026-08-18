@@ -218,12 +218,22 @@
 
 @media (max-width: 640px) {
   .hero-stage-wrap {
-    min-height: 500px;
-    height: 500px !important;
+    min-height: 700px;
+    height: 700px !important;
   }
 
   .hero-stage {
-    top: 0;
+    top: 38px;
+  }
+
+  .hero-stage > div:first-child {
+    height: 3000px !important;
+  }
+
+  .hero-stage > div:first-child img {
+    height: 3000px !important;
+    object-fit: cover;
+    object-position: center top;
   }
 
   .hero-case-number {
