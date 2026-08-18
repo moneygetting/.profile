@@ -217,6 +217,53 @@
 }
 
 @media (max-width: 640px) {
+  .site-nav {
+    width: 100vw;
+    height: 170px;
+    transform: translateX(-50%) scale(1) !important;
+  }
+
+  .site-nav-hidden {
+    transform: translate(-50%, -110%) scale(1) !important;
+  }
+
+  .site-nav-glass {
+    width: 100% !important;
+    height: 170px !important;
+  }
+
+  .site-nav-pill {
+    left: 1rem !important;
+    top: 0.75rem !important;
+    width: calc(100% - 2rem) !important;
+    height: 150px !important;
+    border-radius: 2rem !important;
+    padding: 0 1.25rem !important;
+  }
+
+  .site-nav-logo {
+    width: 100px !important;
+    height: 100px !important;
+    border-radius: 2rem !important;
+  }
+
+  .site-nav-pill .font-body {
+    font-size: clamp(24px, 12vw, 48px) !important;
+    line-height: 1 !important;
+    white-space: normal !important;
+    text-align: right;
+  }
+
+  .hero-intro {
+    width: 1200px !important;
+    height: 900px !important;
+    font-size: 195px !important;
+  }
+
+  .case-study-mobile-copy {
+    font-size: clamp(10px, 3.4vw, 12px) !important;
+  }
+
   .contact-overlay {
     padding: 0.75rem;
   }
