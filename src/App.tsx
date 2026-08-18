@@ -95,12 +95,16 @@ export default function App() {
             {/* Dark overlay */}
             <div style={{ position: 'absolute', left: 0, top: 0, width: '1289px', height: '1051px', background: 'rgb(5, 5, 5)', opacity: 0.82 }} />
 
+            {/* Blur transition divider */}
+            <div className="blur-divider" style={{ position: 'absolute', left: 0, top: '1029px', width: '1289px', height: '104px', zIndex: 1, pointerEvents: 'none' }} />
+
             {/* Glass nav bar */}
             {createPortal(<div className={`site-nav ${navVisible ? 'site-nav-visible' : 'site-nav-hidden'}`} aria-label="Main navigation">
-              <div className="glass-bar" style={{ position: 'absolute', left: 0, top: 0, width: '1289px', height: '121px' }} />
+              <div className="glass-bar site-nav-glass" style={{ position: 'absolute', left: 0, top: 0, width: '1289px', height: '121px' }} />
 
               {/* Inner black nav pill */}
               <div
+                className="site-nav-pill"
                 style={{
                 position: 'absolute',
                 left: '21px',
@@ -123,6 +127,7 @@ export default function App() {
                 crossOrigin="anonymous"
                 referrerPolicy="no-referrer"
                 decoding="async"
+                className="site-nav-logo"
                 style={{ width: '60px', height: '60px', borderRadius: '30px', objectFit: 'cover' }}
               />
               <div
@@ -136,30 +141,27 @@ export default function App() {
 
             {/* Giant case number */}
             <div
-              className="font-display"
-              style={{ position: 'absolute', left: '50px', top: '137px', width: '297px', height: '281px', fontWeight: 400, fontSize: '300px', lineHeight: '1.2em', color: 'rgb(252, 250, 250)', userSelect: 'none' }}
+              className="font-display hero-case-number"
+              style={{ position: 'absolute', left: '50px', top: '137px', width: '297px', height: '281px', fontWeight: 400, fontSize: '300px', lineHeight: '1.2em', color: 'rgb(252, 250, 250)', userSelect: 'none', zIndex: 10 }}
             >
               01
             </div>
 
             {/* Case title */}
             <div
-              className="font-display"
-              style={{ position: 'absolute', left: '66px', top: '137px', width: '562px', height: '109px', fontWeight: 400, fontSize: '80px', lineHeight: '1.2em', color: 'rgb(252, 250, 250)' }}
+              className="font-display hero-case-title"
+              style={{ position: 'absolute', left: '66px', top: '137px', width: '562px', height: '109px', fontWeight: 400, fontSize: '80px', lineHeight: '1.2em', color: 'rgb(252, 250, 250)', zIndex: 10 }}
             >
               Case Study
             </div>
 
             {/* Intro paragraph */}
             <div
-              className="font-body"
-              style={{ position: 'absolute', left: '20px', top: '417.5px', width: '450px', height: '217px', fontWeight: 400, fontSize: '28px', lineHeight: '1.2em', color: 'rgb(252, 250, 250)' }}
+              className="font-body hero-intro"
+              style={{ position: 'absolute', left: '50px', top: '430px', width: '600px', maxWidth: '48%', height: 'auto', fontWeight: 400, fontSize: '28px', lineHeight: '1.2em', color: 'rgb(252, 250, 250)', zIndex: 10 }}
             >
               A national Internet Service Provider, wanted to disrupt the local fintech space by launching a fintech product to directly compete with their competitor&apos;s already successful fintech product. However, they rushed the launch without aligning their internal teams. Because customer care, tech support, and sales agents weren&apos;t talking to each other, technical glitches stalled the rollout, causing employees to panic, shift blame and give up.
             </div>
-
-            {/* Blur transition divider */}
-            <div className="blur-divider" style={{ position: 'absolute', left: 0, top: '1029px', width: '1289px', height: '104px' }} />
           </div>
         </div>
       </section>
@@ -240,7 +242,7 @@ export default function App() {
                       {item.heading && (
                         <h2 className="font-display font-bold text-[24px] sm:text-[32px] leading-[1.2] text-[#000000] text-center mb-2">{item.heading}</h2>
                       )}
-                      <p className="font-body font-bold text-[14px] sm:text-[15px] leading-[1.4] text-[#000000] text-center">
+                      <p className="font-body font-bold case-study-mobile-copy text-[14px] sm:text-[15px] leading-[1.4] text-[#000000] text-center">
                         {item.text}
                       </p>
                       {item.id === 1 && (
