@@ -217,6 +217,11 @@
 }
 
 @media (max-width: 640px) {
+  .hero-stage-wrap {
+    min-height: 500px;
+    height: 500px !important;
+  }
+
   .hero-stage {
     top: 0;
   }
@@ -232,7 +237,7 @@
   .hero-intro {
     top: 500px !important;
     width: 644px !important;
-    font-size: 52px !important;
+    font-size: 44px !important;
   }
 
   .site-nav {
