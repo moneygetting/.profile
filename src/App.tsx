@@ -138,7 +138,7 @@ export default function App() {
 
             {/* Giant case number */}
             <div
-              className="font-display"
+              className="font-display hero-case-number"
               style={{ position: 'absolute', left: '50px', top: '137px', width: '297px', height: '281px', fontWeight: 400, fontSize: '300px', lineHeight: '1.2em', color: 'rgb(252, 250, 250)', userSelect: 'none' }}
             >
               01
@@ -146,7 +146,7 @@ export default function App() {
 
             {/* Case title */}
             <div
-              className="font-display"
+              className="font-display hero-case-title"
               style={{ position: 'absolute', left: '66px', top: '137px', width: '562px', height: '109px', fontWeight: 400, fontSize: '80px', lineHeight: '1.2em', color: 'rgb(252, 250, 250)' }}
             >
               Case Study

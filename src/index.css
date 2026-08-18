@@ -217,17 +217,22 @@
 }
 
 @media (max-width: 640px) {
-  .hero-stage-wrap {
-    min-height: 900px;
-    height: 900px !important;
-  }
-
-  #case1-hero {
-    min-height: 900px;
-  }
-
   .hero-stage {
-    top: 75px;
+    top: 0;
+  }
+
+  .hero-case-number {
+    top: 330px !important;
+  }
+
+  .hero-case-title {
+    top: 330px !important;
+  }
+
+  .hero-intro {
+    top: 500px !important;
+    width: 644px !important;
+    font-size: 52px !important;
   }
 
   .site-nav {
