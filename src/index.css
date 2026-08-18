@@ -219,7 +219,7 @@
 @media (max-width: 640px) {
   .site-nav {
     width: 100vw;
-    height: 170px;
+    height: 90px;
     transform: translateX(-50%) scale(1) !important;
   }
 
@@ -229,26 +229,26 @@
 
   .site-nav-glass {
     width: 100% !important;
-    height: 170px !important;
+    height: 90px !important;
   }
 
   .site-nav-pill {
-    left: 1rem !important;
-    top: 0.75rem !important;
-    width: calc(100% - 2rem) !important;
-    height: 150px !important;
-    border-radius: 2rem !important;
-    padding: 0 1.25rem !important;
+    left: 0.6rem !important;
+    top: 0.55rem !important;
+    width: calc(100% - 1.2rem) !important;
+    height: 70px !important;
+    border-radius: 1.25rem !important;
+    padding: 0 0.9rem !important;
   }
 
   .site-nav-logo {
-    width: 100px !important;
-    height: 100px !important;
-    border-radius: 2rem !important;
+    width: 44px !important;
+    height: 44px !important;
+    border-radius: 1rem !important;
   }
 
   .site-nav-pill .font-body {
-    font-size: clamp(24px, 12vw, 48px) !important;
+    font-size: clamp(20px, 7vw, 26px) !important;
     line-height: 1 !important;
     white-space: normal !important;
     text-align: right;
@@ -257,7 +257,7 @@
   .hero-intro {
     width: 1200px !important;
     height: 900px !important;
-    font-size: 195px !important;
+    font-size: 142px !important;
   }
 
   .case-study-mobile-copy {
