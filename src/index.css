@@ -218,12 +218,16 @@
 
 @media (max-width: 640px) {
   .hero-stage-wrap {
-    min-height: 820px;
-    height: 820px !important;
+    min-height: 900px;
+    height: 900px !important;
   }
 
   #case1-hero {
-    min-height: 820px;
+    min-height: 900px;
+  }
+
+  .hero-stage {
+    top: 75px;
   }
 
   .site-nav {
@@ -248,11 +252,11 @@
     height: 55px !important;
     border-radius: 1.25rem !important;
     padding: 0 0.75rem !important;
-    background: rgb(18 18 18 / 0.48) !important;
-    border: 1px solid rgb(255 255 255 / 0.22);
-    backdrop-filter: blur(22px) saturate(145%);
-    -webkit-backdrop-filter: blur(22px) saturate(145%);
-    box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.2), 0 10px 30px rgb(0 0 0 / 0.22);
+    background: #050505 !important;
+    border: 0;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    box-shadow: none;
   }
 
   .site-nav-logo {
@@ -271,7 +275,7 @@
   .hero-intro {
     width: 1200px !important;
     height: 900px !important;
-    font-size: 142px !important;
+    font-size: 52px !important;
   }
 
   .case-study-mobile-copy {
