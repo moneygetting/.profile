@@ -80,23 +80,20 @@ export default function App() {
         <div ref={stageWrapRef} className="hero-stage-wrap w-full max-w-[1289px] mx-auto">
           <div ref={stageRef} className="hero-stage">
             {/* Hero background portrait */}
-            <div style={{ position: 'absolute', left: 0, top: 0, width: '1289px', height: '1051px', overflow: 'hidden' }}>
+            <div className="hero-bg-container" style={{ position: 'absolute', left: 0, top: 0, width: '1289px', height: '1051px', overflow: 'hidden' }}>
               <img
                 src={HERO_BG_URL}
-                crossOrigin="anonymous"
-                referrerPolicy="no-referrer"
                 fetchPriority="high"
+                loading="eager"
                 decoding="async"
                 alt="Close-up black and white portrait"
-                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                className="hero-bg-img"
+                style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center center', display: 'block' }}
               />
             </div>
 
             {/* Dark overlay */}
-            <div style={{ position: 'absolute', left: 0, top: 0, width: '1289px', height: '1051px', background: 'rgb(5, 5, 5)', opacity: 0.82 }} />
-
-            {/* Blur transition divider */}
-            <div className="blur-divider" style={{ position: 'absolute', left: 0, top: '1029px', width: '1289px', height: '104px', zIndex: 1, pointerEvents: 'none' }} />
+            <div className="hero-bg-overlay" style={{ position: 'absolute', left: 0, top: 0, width: '1289px', height: '1051px', background: 'rgb(5, 5, 5)', opacity: 0.8 }} />
 
             {/* Glass nav bar */}
             {createPortal(<div className={`site-nav ${navVisible ? 'site-nav-visible' : 'site-nav-hidden'}`} aria-label="Main navigation">
@@ -111,7 +108,7 @@ export default function App() {
                 top: '9px',
                 width: '1249px',
                 height: '87px',
-                borderRadius: '100px',
+                borderRadius: '9999px',
                 background: 'rgb(5, 5, 5)',
                 overflow: 'hidden',
                 display: 'flex',
@@ -142,7 +139,7 @@ export default function App() {
             {/* Giant case number */}
             <div
               className="font-display hero-case-number"
-              style={{ position: 'absolute', left: '50px', top: '137px', width: '297px', height: '281px', fontWeight: 400, fontSize: '300px', lineHeight: '1.2em', color: 'rgb(252, 250, 250)', userSelect: 'none', zIndex: 10 }}
+              style={{ position: 'absolute', left: '50px', top: '100px', width: '297px', height: '281px', fontWeight: 400, fontSize: '300px', lineHeight: '1.2em', color: 'rgb(252, 250, 250)', userSelect: 'none', zIndex: 10 }}
             >
               01
             </div>
@@ -150,7 +147,7 @@ export default function App() {
             {/* Case title */}
             <div
               className="font-display hero-case-title"
-              style={{ position: 'absolute', left: '66px', top: '137px', width: '562px', height: '109px', fontWeight: 400, fontSize: '80px', lineHeight: '1.2em', color: 'rgb(252, 250, 250)', zIndex: 10 }}
+              style={{ position: 'absolute', left: '66px', top: '100px', width: '562px', height: '109px', fontWeight: 400, fontSize: '80px', lineHeight: '1.2em', color: 'rgb(252, 250, 250)', zIndex: 10 }}
             >
               Case Study
             </div>
@@ -158,7 +155,7 @@ export default function App() {
             {/* Intro paragraph */}
             <div
               className="font-body hero-intro"
-              style={{ position: 'absolute', left: '50px', top: '430px', width: '600px', maxWidth: '48%', height: 'auto', fontWeight: 400, fontSize: '28px', lineHeight: '1.2em', color: 'rgb(252, 250, 250)', zIndex: 10 }}
+              style={{ position: 'absolute', left: '50px', top: '390px', width: '600px', maxWidth: '48%', height: 'auto', fontWeight: 400, fontSize: '28px', lineHeight: '1.2em', color: 'rgb(252, 250, 250)', zIndex: 10 }}
             >
               A national Internet Service Provider, wanted to disrupt the local fintech space by launching a fintech product to directly compete with their competitor&apos;s already successful fintech product. However, they rushed the launch without aligning their internal teams. Because customer care, tech support, and sales agents weren&apos;t talking to each other, technical glitches stalled the rollout, causing employees to panic, shift blame and give up.
             </div>

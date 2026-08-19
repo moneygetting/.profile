@@ -2,16 +2,9 @@
 
 @font-face {
   font-family: 'Demun Lotion';
-  src: url('/local/fonts/demun-lotion.woff2') format('woff2'),
-       url('/local/fonts/demun-lotion.woff') format('woff'),
-       url('/local/fonts/demun-lotion.ttf') format('truetype'),
-       url('/local/fonts/demun-lotion.otf') format('opentype'),
-       url('/local/fonts/DemunLotion.woff2') format('woff2'),
-       url('/local/fonts/DemunLotion.woff') format('woff'),
+  src: url('/local/fonts/demun-lotion.ttf') format('truetype'),
+       url('/local/fonts/Demun Lotion.ttf') format('truetype'),
        url('/local/fonts/DemunLotion.ttf') format('truetype'),
-       url('/local/fonts/DemunLotion.otf') format('opentype'),
-       url('/local/fonts/Demun-Lotion.ttf') format('truetype'),
-       url('/local/fonts/Demun-Lotion.otf') format('opentype'),
        url('/local/fonts/demun_lotion.ttf') format('truetype'),
        url('/local/fonts/demunlotion.ttf') format('truetype');
   font-weight: 100 900;
@@ -21,16 +14,9 @@
 
 @font-face {
   font-family: 'Sandy Ravage';
-  src: url('/local/fonts/sandy-ravage.woff2') format('woff2'),
-       url('/local/fonts/sandy-ravage.woff') format('woff'),
-       url('/local/fonts/sandy-ravage.ttf') format('truetype'),
-       url('/local/fonts/sandy-ravage.otf') format('opentype'),
-       url('/local/fonts/SandyRavage.woff2') format('woff2'),
-       url('/local/fonts/SandyRavage.woff') format('woff'),
+  src: url('/local/fonts/sandy-ravage.ttf') format('truetype'),
+       url('/local/fonts/SandyRavage-Regular.ttf') format('truetype'),
        url('/local/fonts/SandyRavage.ttf') format('truetype'),
-       url('/local/fonts/SandyRavage.otf') format('opentype'),
-       url('/local/fonts/Sandy-Ravage.ttf') format('truetype'),
-       url('/local/fonts/Sandy-Ravage.otf') format('opentype'),
        url('/local/fonts/sandy_ravage.ttf') format('truetype'),
        url('/local/fonts/sandyravage.ttf') format('truetype');
   font-weight: 100 900;
@@ -46,10 +32,10 @@
     font-family: 'Raleway', system-ui, sans-serif;
   }
   .font-demun {
-    font-family: 'Demun Lotion', 'Che Demu', system-ui, sans-serif;
+    font-family: 'Demun Lotion', 'Che Demu', 'Pixelify Sans', system-ui, sans-serif;
   }
   .font-sandy {
-    font-family: 'Sandy Ravage', system-ui, sans-serif;
+    font-family: 'Sandy Ravage', 'Pixelify Sans', system-ui, sans-serif;
   }
 }
 
@@ -63,14 +49,6 @@
   overflow: hidden;
   -webkit-mask-image: linear-gradient(180deg, rgb(0, 0, 0) 0%, rgb(0, 0, 0) 62%, rgba(0, 0, 0, 0.55) 82%, rgba(0, 0, 0, 0) 100%);
   mask-image: linear-gradient(180deg, rgb(0, 0, 0) 0%, rgb(0, 0, 0) 62%, rgba(0, 0, 0, 0.55) 82%, rgba(0, 0, 0, 0) 100%);
-}
-
-.blur-divider {
-  filter: blur(41px);
-  opacity: 0.82;
-  background: linear-gradient(180deg, rgba(8, 7, 7, 0.99) 0%, rgb(5, 5, 5) 100%);
-  pointer-events: none;
-  z-index: 1;
 }
 
 .hero-case-number,
@@ -232,32 +210,39 @@
 
   .hero-stage {
     top: 38px;
+    height: calc(500px / var(--hero-scale, 0.35)) !important;
   }
 
-  .hero-stage > div:first-child {
-    height: 3000px !important;
+  .hero-bg-container {
+    height: calc(500px / var(--hero-scale, 0.35)) !important;
+    min-height: 1500px !important;
   }
 
-  .hero-stage > div:first-child img {
-    height: 3000px !important;
-    object-fit: cover;
-    object-position: center top;
+  .hero-bg-container img,
+  .hero-bg-img {
+    height: 100% !important;
+    width: 100% !important;
+    object-fit: cover !important;
+    object-position: center 25% !important;
+    display: block !important;
   }
 
-  .hero-stage > div:nth-child(2) {
-    height: 3000px !important;
+  .hero-bg-overlay {
+    height: calc(500px / var(--hero-scale, 0.35)) !important;
+    min-height: 1500px !important;
+    opacity: 0.8 !important;
   }
 
   .hero-case-number {
-    top: 330px !important;
+    top: 190px !important;
   }
 
   .hero-case-title {
-    top: 330px !important;
+    top: 190px !important;
   }
 
   .hero-intro {
-    top: 640px !important;
+    top: 500px !important;
     left: 50px !important;
     width: 600px !important;
     max-width: 50% !important;
@@ -286,7 +271,7 @@
     top: 0.5rem !important;
     width: calc(100% - 1.2rem) !important;
     height: 55px !important;
-    border-radius: 1.25rem !important;
+    border-radius: 9999px !important;
     padding: 0 0.75rem !important;
     background: #050505 !important;
     border: 0;
